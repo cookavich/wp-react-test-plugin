@@ -28,6 +28,12 @@ export default class App extends React.Component {
     	const updatedPosts = removePost(this.state.posts, id);
     	this.setState({posts: updatedPosts});
     	deletePost(id);
+        getPosts()
+            .then(res => {
+                this.setState({
+                    posts: res.data
+                })
+            });
 	}
 
 	handleUpdate(postId, postTitle, event) {
@@ -42,10 +48,10 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="posts" style={PostsStyles.posts}>
 				{this.state.posts && this.state.posts.map((post, index) => (
 					<Post
-						key={index}
+						key={post.id}
 						post={post}
 						handleRemove={this.handleRemove}
 						handleUpdate={this.handleUpdate}
@@ -55,3 +61,9 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+const PostsStyles = {
+    posts: {
+    	padding: '16px'
+	}
+};

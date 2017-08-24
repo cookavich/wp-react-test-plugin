@@ -1,0 +1,11 @@
+.posts {
+    padding: 16px;
+}
+
+.post {
+    padding: 16px;
+}
+
+.post img {
+    float: none;
+}

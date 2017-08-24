@@ -1,5 +1,4 @@
 import React from 'react';
-import {toggleEditPost} from '../lib/postsHelpers';
 
 export default class Post extends React.Component {
     constructor(props) {
@@ -8,6 +7,7 @@ export default class Post extends React.Component {
             editing: false,
             newTitle: this.props.post.title.rendered
         };
+        this.toggleEditPost = this.toggleEditPost.bind(this)
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -22,7 +22,7 @@ export default class Post extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="post" style={PostStyles.post}>
                 {this.state.editing
                 ?    <form onSubmit={(event) => {
                         this.props.handleUpdate(this.props.post.id, this.state.newTitle, event);
@@ -34,14 +34,29 @@ export default class Post extends React.Component {
                         </label>
                         <input type="submit" value="Save Title" />
                     </form>
-                :   <h1><a onClick={(event) => this.toggleEditPost}>{this.props.post.title.rendered}</a></h1>}
+                :   <h1><a onClick={ this.toggleEditPost}>{this.props.post.title.rendered}</a></h1>}
 
-                {/*{this.props.post.featured_media*/}
-                {/*? <img src={this.props.post._embedded['wp:featuredmedia'][0].media_details.sizes["full"].source_url}/>*/}
-                {/*: null}*/}
+                {this.props.post.featured_media
+                ?   <img
+                        style={PostStyles.featuredImage}
+                        className="featured-image"
+                        src={this.props.post._embedded['wp:featuredmedia'][0].source_url}
+                    />
+                :   null}
+
                 <div dangerouslySetInnerHTML={{__html: this.props.post.content.rendered}}/>
+
                 <a onClick={(event) => this.props.handleRemove(this.props.post.id, event)}>Delete Post</a>
             </div>
         )
     }
 }
+
+const PostStyles = {
+    post: {
+        padding: '16px'
+    },
+    featuredImage: {
+        maxWidth: '100%'
+    }
+};
