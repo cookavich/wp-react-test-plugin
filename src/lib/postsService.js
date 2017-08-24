@@ -8,4 +8,4 @@ export const deletePost = (id) => {
     axios.delete(`${apiUrl}/${id}`, {headers: {'X-WP-Nonce': WpSettings.nonce}});
 }
 
-export const savePost = (post) => axios.post(`${apiUrl}/${post.id}`, {'title': post.title}, {headers: {'X-WP-Nonce': WpSettings.nonce}});
+export const savePost = (post) => axios.put(`${apiUrl}/${post.id}`, {'title': post.title.rendered}, {headers: {'X-WP-Nonce': WpSettings.nonce}});
