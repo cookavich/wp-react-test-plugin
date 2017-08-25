@@ -64,7 +64,7 @@ export default class App extends React.Component {
 
 const PostsStyles = {
     posts: {
-    	padding: '16px',
+    	padding: 16,
         display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center'
