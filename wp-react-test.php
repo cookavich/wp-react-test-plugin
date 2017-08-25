@@ -1,12 +1,12 @@
 <?php
 
 /*
-Plugin Name: WP React Boilerplate
+Plugin Name: WP React Test
 Plugin URI:
 Description:
-Author: Peter Tasker
+Author: Paul Cook
 Version: 0.1
-Author URI: http://deliciousbrains.com
+Author URI: paulrcook.com
 Network: True
 */
 

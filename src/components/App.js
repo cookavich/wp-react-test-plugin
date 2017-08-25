@@ -23,11 +23,17 @@ export default class App extends React.Component {
             });
 	}
 
+    /**
+	 * Removes the post
+     * @param id
+     * @param event
+     */
 	handleRemove(id, event) {
     	event.preventDefault();
     	const updatedPosts = removePost(this.state.posts, id);
     	this.setState({posts: updatedPosts});
     	deletePost(id);
+    	// refreshes our collection of posts after one is deleted
         getPosts()
             .then(res => {
                 this.setState({
@@ -36,10 +42,16 @@ export default class App extends React.Component {
             });
 	}
 
+    /**
+	 * Updates the post title
+     * @param postId
+     * @param postTitle
+     * @param event
+     */
 	handleUpdate(postId, postTitle, event) {
         event.preventDefault();
-        console.log('posts',this.state.posts);
 		const updatedPost = findById(this.state.posts, postId);
+		// updates the title of the post
 		updatedPost.title.rendered = postTitle;
         const updatedPosts = updatePost(this.state.posts, updatedPost);
 		this.setState({posts: updatedPosts});

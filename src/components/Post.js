@@ -13,11 +13,20 @@ class Post extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    /**
+     * Toggles whether or not a post is being edited.
+     * Needed for setting UI state.
+     * @param event
+     */
     toggleEditPost(event) {
         event.preventDefault();
         this.setState({editing: !this.state.editing});
     }
 
+    /**
+     * Keeps track of the updated title
+     * @param event
+     */
     handleChange(event) {
         this.setState({newTitle: event.target.value})
     }
@@ -26,6 +35,7 @@ class Post extends React.Component {
         return (
             <div className="post" style={PostStyles.post}>
                 <div style={PostStyles.titleContainer}>
+
                 {this.state.editing
                 ?    <form
                         style={PostStyles.titleForm}
@@ -42,15 +52,16 @@ class Post extends React.Component {
                         />
                     </form>
                 :   <h1 style={PostStyles.title}>{this.props.post.title.rendered}</h1>}
+
                     <div>
-                        {this.state.editing
-                            ? null
-                            : <a
-                                onClick={this.toggleEditPost}
-                                className="button activate"
-                                style={PostStyles.editPost}>
-                                Edit Post
-                            </a>}
+                    {this.state.editing
+                    ?   null
+                    :   <a onClick={this.toggleEditPost}
+                            className="button activate"
+                            style={PostStyles.editPost}>
+                            Edit Post
+                        </a>}
+
                         <a
                             onClick={(event) => this.props.handleRemove(this.props.post.id, event)}
                             className="button"
@@ -58,13 +69,13 @@ class Post extends React.Component {
                             Delete Post
                         </a>
                     </div>
+
                 </div>
+
                 {this.props.post.featured_media
-                ?   <img
-                        style={PostStyles.featuredImage}
+                ?   <img style={PostStyles.featuredImage}
                         className="featured-image"
-                        src={this.props.post._embedded['wp:featuredmedia'][0].source_url}
-                    />
+                        src={this.props.post._embedded['wp:featuredmedia'][0].source_url} />
                 :   null}
 
                 <div dangerouslySetInnerHTML={{__html: this.props.post.content.rendered}}/>
