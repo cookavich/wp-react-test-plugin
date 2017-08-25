@@ -59,7 +59,7 @@ class Post extends React.Component {
                     :   <a onClick={this.toggleEditPost}
                             className="button activate"
                             style={PostStyles.editPost}>
-                            Edit Post
+                            Edit Title
                         </a>}
 
                         <a
