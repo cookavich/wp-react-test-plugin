@@ -12,6 +12,12 @@ Plugin based on [this blog post](https://deliciousbrains.com/develop-wordpress-p
   
 **Webpack** handles combining it all together.
 
+### Current Functionality
+
+The current functionality is limited to editing post titles and deleting posts, and it only displays 5 posts at a time.
+
+In the future I'd love to rethink the current UI for editing posts, but the above will have to suffice for now.
+
 ### Getting started
 
 In order to run the plugin:
