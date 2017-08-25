@@ -12,7 +12,7 @@ Plugin based on [this blog post](https://deliciousbrains.com/develop-wordpress-p
   
 **Webpack** handles combining it all together.
 
-### Current Functionality
+### Current functionality
 
 The current functionality is limited to editing post titles and deleting posts, and it only displays 5 posts at a time.
 
@@ -37,3 +37,7 @@ To run tests:
 `npm test`
 
 A production-ready WordPress plugin will be built in the `wp-react-test-built` folder.
+
+### Accessing the plugin
+
+The plugin is accessible from the Tools submenu in the WP Admin.
