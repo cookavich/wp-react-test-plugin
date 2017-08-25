@@ -48,7 +48,7 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<div className="posts" style={PostsStyles.posts}>
+			<div className="posts wp-core-ui" style={PostsStyles.posts}>
 				{this.state.posts && this.state.posts.map((post, index) => (
 					<Post
 						key={post.id}
@@ -64,6 +64,9 @@ export default class App extends React.Component {
 
 const PostsStyles = {
     posts: {
-    	padding: '16px'
+    	padding: '16px',
+        display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center'
 	}
 };

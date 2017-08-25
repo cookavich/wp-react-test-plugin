@@ -1,13 +1,15 @@
 import React from 'react';
+import Radium from 'radium';
 
-export default class Post extends React.Component {
+class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             editing: false,
+            errorMessage: '',
             newTitle: this.props.post.title.rendered
         };
-        this.toggleEditPost = this.toggleEditPost.bind(this)
+        this.toggleEditPost = this.toggleEditPost.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -23,19 +25,40 @@ export default class Post extends React.Component {
     render() {
         return (
             <div className="post" style={PostStyles.post}>
+                <div style={PostStyles.titleContainer}>
                 {this.state.editing
-                ?    <form onSubmit={(event) => {
+                ?    <form
+                        style={PostStyles.titleForm}
+                        onSubmit={(event) => {
                         this.props.handleUpdate(this.props.post.id, this.state.newTitle, event);
                         this.toggleEditPost(event);
                     }}>
-                        <label>
-                            New Title:
-                            <input value={this.state.newTitle} onChange={this.handleChange} />
-                        </label>
-                        <input type="submit" value="Save Title" />
+                        <input value={this.state.newTitle} onChange={this.handleChange} required />
+                        <input
+                            type="submit"
+                            value="Save Title"
+                            className="button button-primary"
+                            style={PostStyles.savePost}
+                        />
                     </form>
-                :   <h1><a onClick={ this.toggleEditPost}>{this.props.post.title.rendered}</a></h1>}
-
+                :   <h1 style={PostStyles.title}>{this.props.post.title.rendered}</h1>}
+                    <div>
+                        {this.state.editing
+                            ? null
+                            : <a
+                                onClick={this.toggleEditPost}
+                                className="button activate"
+                                style={PostStyles.editPost}>
+                                Edit Post
+                            </a>}
+                        <a
+                            onClick={(event) => this.props.handleRemove(this.props.post.id, event)}
+                            className="button"
+                            style={PostStyles.deletePost}>
+                            Delete Post
+                        </a>
+                    </div>
+                </div>
                 {this.props.post.featured_media
                 ?   <img
                         style={PostStyles.featuredImage}
@@ -45,18 +68,48 @@ export default class Post extends React.Component {
                 :   null}
 
                 <div dangerouslySetInnerHTML={{__html: this.props.post.content.rendered}}/>
-
-                <a onClick={(event) => this.props.handleRemove(this.props.post.id, event)}>Delete Post</a>
             </div>
         )
     }
 }
 
+export default Post = Radium(Post);
+
 const PostStyles = {
     post: {
-        padding: '16px'
+        padding: 16,
+        maxWidth: 700
+    },
+    titleContainer: {
+        paddingTop: 16,
+        paddingBottom: 16
+    },
+    title: {
+      paddingRight: 24,
+    },
+    titleForm: {
+        paddingBottom: 16,
     },
     featuredImage: {
-        maxWidth: '100%'
+        width: '70%',
+        height: 'auto'
+    },
+    deletePost: {
+        color: '#a00',
+        textDecoration: 'none',
+        borderColor: 'transparent',
+        boxShadow: 'none',
+        background: '0 0',
+        ':hover': {
+            background: '#d54e21',
+            color: '#fff',
+            borderColor: '#d54e21',
+        }
+    },
+    editPost: {
+        marginRight: 16
+    },
+    savePost: {
+        marginLeft: 16
     }
 };
